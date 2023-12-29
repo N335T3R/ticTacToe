@@ -142,6 +142,8 @@ var referee = {
     takeTurn: function() {
         this.counter++;
         this.selectSqr = 0;
+        board.squares[this.selectSqr].classList.add('selectSqr');
+        console.log(this.selectSqr);
         
         if (this.counter % 2 !== 0) {
             this.refTalk.textContent = this.prompts.p1Turn.message;
@@ -149,20 +151,18 @@ var referee = {
             this.refTalk.textContent = this.prompts.p2Turn.message;
         }
 
-        board.squares[this.selectSqr].classList.add('selectSqr');
-
         this.changeSqr();
     },
     changeSqr: function() {
+        if (this.counter % 2 !== 0) {
+            this.refTalk.textContent = this.prompts.p1Turn.message;
+        } else {
+            this.refTalk.textContent = this.prompts.p2Turn.message;
+        }
+        
         window.addEventListener('keydown', (e) => {
             var key = e.key;
             console.log(key);
-
-            if (this.counter % 2 !== 0) {
-                this.refTalk.textContent = this.prompts.p1Turn.message;
-            } else {
-                this.refTalk.textContent = this.prompts.p2Turn.message;
-            }
 
             switch(key) {
                 case "ArrowUp":
@@ -216,8 +216,15 @@ var referee = {
         });
     },
     confirmSqr: function() {
-        if (this.counter % 2 !== 0) this.refTalk.textContent = this.prompts.p1Confirm.message;
-        else this.refTalk.textContent = this.prompts.p2Confirm.message;
+        var wrongPrompt;
+
+        if (this.counter % 2 !== 0) {
+            this.refTalk.textContent = this.prompts.p1Confirm.message;
+            wrongPrompt = this.prompts.p1Confirm.message;
+        } else {
+            this.refTalk.textContent = this.prompts.p2Confirm.message;
+            wrongPrompt = this.prompts.p2Confirm.message;
+        }
     
 
         window.addEventListener("keydown", (e) => {
@@ -232,6 +239,7 @@ var referee = {
                         p.classList.add("pp");
                         board.squares[this.selectSqr].classList.add("p1Sqr");
                         board.squares[this.selectSqr].appendChild(p);
+                        this.evaluate();
                     } else {
                         p = document.createElement("p");
                         p.textContent = players.players.p2.value;
@@ -239,14 +247,20 @@ var referee = {
                         p.classList.add("pp");
                         board.squares[this.selectSqr].classList.add("p2Sqr");
                         board.squares[this.selectSqr].appendChild(p);
+                        this.evaluate();
                     }
-                    this.takeTurn();
                     break;
                 case "Backspace":
                     this.changeSqr();
                     break;
+                default: 
+                    this.refTalk.textContent = "Choose a correct option. " + wrongPrompt;
+                    break;
             }
         });
+    },
+    evaluate: function() {
+        this.takeTurn();
     }
 };
 
