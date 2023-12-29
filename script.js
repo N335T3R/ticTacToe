@@ -85,7 +85,6 @@ var referee = {
     changeSqr: function() {
         window.addEventListener('keydown', (e) => {
             var key = e.key;
-            console.log(key);
 
             switch(key) {
                 case "ArrowUp":
@@ -98,9 +97,41 @@ var referee = {
                         this.selectSqr = this.selectSqr - 6;
                         board.squares[this.selectSqr].classList.add("selectSqr");
                     }
+                    break;
+                case "ArrowRight":
+                    if (this.selectSqr !== 2 && this.selectSqr !== 5 && this.selectSqr !== 8){
+                        board.squares[this.selectSqr].classList.remove("selectSqr");
+                        this.selectSqr = this.selectSqr + 1;
+                        board.squares[this.selectSqr].classList.add("selectSqr");
+                    } else if (this.selectSqr == 2 || this.selectSqr == 5 || this.selectSqr == 8) {
+                        board.squares[this.selectSqr].classList.remove("selectSqr");
+                        this.selectSqr = this.selectSqr - 2;
+                        board.squares[this.selectSqr].classList.add("selectSqr");
+                    }
+                    break;
+                case "ArrowDown":
+                    if (this.selectSqr !== 0 && this.selectSqr !== 1 && this.selectSqr !== 2){
+                        board.squares[this.selectSqr].classList.remove("selectSqr");
+                        this.selectSqr = this.selectSqr - 3;
+                        board.squares[this.selectSqr].classList.add("selectSqr");
+                    } else if (this.selectSqr == 0 || this.selectSqr == 1 || this.selectSqr == 2) {
+                        board.squares[this.selectSqr].classList.remove("selectSqr");
+                        this.selectSqr = this.selectSqr + 6;
+                        board.squares[this.selectSqr].classList.add("selectSqr");
+                    }
+                    break;
+                case "ArrowLeft":
+                    if (this.selectSqr !== 0 && this.selectSqr !== 3 && this.selectSqr !== 6){
+                        board.squares[this.selectSqr].classList.remove("selectSqr");
+                        this.selectSqr = this.selectSqr - 1;
+                        board.squares[this.selectSqr].classList.add("selectSqr");
+                    } else if (this.selectSqr == 0 || this.selectSqr == 3 || this.selectSqr == 6) {
+                        board.squares[this.selectSqr].classList.remove("selectSqr");
+                        this.selectSqr = this.selectSqr + 2;
+                        board.squares[this.selectSqr].classList.add("selectSqr");
+                    }
+                    break;
             }
-
-            this.takeTurn();
         });
     }
 };
