@@ -1,0 +1,59 @@
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: block;
+    background-color: #111;
+}
+.field {
+    display: flexbox;
+    padding: 2rem 2rem 2rem 2rem;
+}
+
+
+
+.playerSpace {
+    float: right;
+}
+.playerDiv h1 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2rem;
+}
+.p1Div {
+    background-color: #457;
+    opacity: 0.8;
+    color: #977;
+}
+.p2Div {
+    background-color: #935;
+    opacity: 0.8;
+    color: #889;
+}
+
+
+.boardSpace {
+    max-width: 50%;
+}
+
+
+
+.row {
+    display: flex;
+    height: 150px;
+    width: 450px;
+}
+.lSqr, .dSqr {
+    height: inherit;
+    width: 150px;
+}
+.lSqr {
+    background-color: tan;
+}
+.dSqr {
+    background-color: #333;
+}
+
+
