@@ -80,7 +80,9 @@ body {
 .dSqr {
     background-color: #333;
 }
-
+.selectSqr {
+    background-color: #284;
+}
 
 
 .ref {
@@ -89,11 +91,19 @@ body {
 .refSpace {
     display: block;
     position: relative;
-    margin: 2rem 35% 0 35%;
-    align-content: center;
+    margin: 5rem 25% 0 20%;
+    align-items: center;
+    justify-content: center;
 
     color: #777;
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.5rem;
     font-weight: 100;
+}
+.refSpace h2 {
+    text-align: center;
+}
+.refSpace p {
+    text-align: center;
+    margin: 1rem 0 0 2rem;
 }

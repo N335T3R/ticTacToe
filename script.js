@@ -51,8 +51,58 @@ var board = {
 
 
 var referee = {
+    counter: 0,
+    selectSqr: 0,
     refTalk: document.querySelector(".refTalk"),
-    
+    prompts: {
+        p1Turn: {
+            message: "Player 1: Use the arrow keys to move. Press 'ENTER' to select."
+        }, p2Turn: {
+            message: "Player 2: Use the arrow keys to move. Press 'ENTER' to select."
+        }, p1Confirm: {
+            message: "Player 1: Press 'ENTER' to confirm or 'BKSPC' to deselect."
+        }, p2Confirm: {
+            message: "Player 2: Press 'ENTER' to confirm or 'BKSPC' to deselect."
+        }, p1Win: {
+            message: "Player 1 wins! Congratulations!"
+        }, p2Win: {
+            message: "Player 2 wins! Congratulations!"
+        }
+    },
+    takeTurn: function() {
+        this.counter++;
+        
+        if (this.counter % 2 !== 0) {
+            this.refTalk.textContent = this.prompts.p1Turn.message;
+        } else {
+            this.refTalk.textContent = this.prompts.p2Turn.message;
+        }
+
+        board.squares[this.selectSqr].classList.add('selectSqr');
+
+        this.changeSqr();
+    },
+    changeSqr: function() {
+        window.addEventListener('keydown', (e) => {
+            var key = e.key;
+            console.log(key);
+
+            switch(key) {
+                case "ArrowUp":
+                    if (this.selectSqr !== 6 && this.selectSqr !== 7 && this.selectSqr !== 8){
+                        board.squares[this.selectSqr].classList.remove("selectSqr");
+                        this.selectSqr = this.selectSqr + 3;
+                        board.squares[this.selectSqr].classList.add("selectSqr");
+                    } else if (this.selectSqr == 6 || this.selectSqr == 7 || this.selectSqr == 8) {
+                        board.squares[this.selectSqr].classList.remove("selectSqr");
+                        this.selectSqr = this.selectSqr - 6;
+                        board.squares[this.selectSqr].classList.add("selectSqr");
+                    }
+            }
+
+            this.takeTurn();
+        });
+    }
 };
 
 
@@ -133,6 +183,8 @@ function gameGen() {
 
     board.generate();
     players.generate();
+
+    referee.takeTurn();
 }
 
 document.addEventListener(onload, gameGen());
