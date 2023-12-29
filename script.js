@@ -51,10 +51,16 @@ var board = {
 
 
 var referee = {
+    refTalk: document.querySelector(".refTalk"),
+    
 };
 
 
 var players = {
+    pieces: {
+        p1: [],
+        p2: [],
+    },
     playerSpace: document.querySelector(".playerSpace"),
     players: {
         p1: {
@@ -67,31 +73,64 @@ var players = {
         }
     },
     buildPlayerSpace: function() {
-        var a = document.createElement("div");
-        var b = document.createElement("div");
+        //Places PlaySpaces & sets player names
+        var playSpace1 = document.createElement("div");
+        var playSpace2 = document.createElement("div");
 
-        var p1h1 = a.appendChild(document.createElement("h1"));
-        var p2h2 = b.appendChild(document.createElement("h1"));
+        var p1h1 = playSpace1.appendChild(document.createElement("h1"));
+        var p2h2 = playSpace2.appendChild(document.createElement("h1"));
         p1h1.textContent = this.players.p1.name;
         p2h2.textContent = this.players.p2.name;
 
-        a.classList.add(".playerDiv", "p1Div");
-        b.classList.add("playerDiv", "p2Div");
+        playSpace1.classList.add("playerDiv", "p1Div");
+        playSpace2.classList.add("playerDiv", "p2Div");
 
-        this.playerSpace.appendChild(a);
-        this.playerSpace.appendChild(b);
+        this.playerSpace.appendChild(playSpace1);
+        this.playerSpace.appendChild(playSpace2);
+
+
+        //places Markers
+        p1MSpace = document.createElement("div");
+        p1MSpace.classList.add("markerSpace");
+        playSpace1.appendChild(p1MSpace);
+        p2MSpace = document.createElement("div");
+        p2MSpace.classList.add("markerSpace");
+        playSpace2.appendChild(p2MSpace);
+
+        for (i = 0; i < 12; i++) {
+            if (i < 6) {
+                var marker = document.createElement("div");
+                marker.classList.add("marker", "p1Marker");
+                marker.textContent = this.players.p1.value;
+                this.pieces.p1.push(marker);
+            } else {
+                var marker = document.createElement("div");
+                marker.classList.add("marker", "p2Marker");
+                marker.textContent = this.players.p2.value;
+                this.pieces.p2.push(marker);
+            }
+        }
+
+        this.pieces.p1.forEach((piece) => {
+            p1MSpace.appendChild(piece);
+        });
+        this.pieces.p2.forEach((piece) => {
+            p2MSpace.appendChild(piece);
+        })
     },
     generate: function() {
         this.players.p1.name = prompt("Player1 Name: ", "Name...");
         this.players.p2.name = prompt("Player2 Name: ", "Name...");
 
-        console.log(this.players);
         this.buildPlayerSpace();
     }
 };
 
 
 function gameGen() {
+    var refSpace = document.querySelector(".ref");
+    refSpace.classList.add("refSpace");
+
     board.generate();
     players.generate();
 }

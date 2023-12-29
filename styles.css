@@ -9,37 +9,62 @@ body {
     background-color: #111;
 }
 .field {
-    display: flexbox;
+    display: flex;
     padding: 2rem 2rem 2rem 2rem;
 }
 
 
 
 .playerSpace {
-    float: right;
+    display: block;
+    padding: 0 0 0 5rem;
+}
+.playerDiv {
+    background-color: #999;
+    opacity: 0.9;
 }
 .playerDiv h1 {
+    padding: 1.5rem;
     font-family: 'Times New Roman', Times, serif;
-    font-size: 2rem;
+    font-size: 2.5rem;
 }
 .p1Div {
-    background-color: #457;
-    opacity: 0.8;
-    color: #977;
+    color: #113;
+    margin: 0 2rem 5rem 0;
 }
 .p2Div {
-    background-color: #935;
-    opacity: 0.8;
-    color: #889;
+    margin: 5.5rem 2rem 0 0;
+
+    color: #311;
+}
+
+.markerSpace {
+    margin: 0;
+    display: flex;
+    padding: 0 2rem 2rem 1.5rem;
+}
+.marker {
+    height: 50px;
+    width: 50px;
+    margin: 0 0.25rem 0.25rem 0.25rem;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3rem;
+    font-weight: 900;
+}
+.p1Marker {
+    background-color: transparent;
+    color: #559;
+}
+.p2Marker {
+    background-color: transparent;
+    color: #955;
 }
 
 
 .boardSpace {
     max-width: 50%;
 }
-
-
-
 .row {
     display: flex;
     height: 150px;
@@ -57,3 +82,18 @@ body {
 }
 
 
+
+.ref {
+    display: hidden;
+}
+.refSpace {
+    display: block;
+    position: relative;
+    margin: 2rem 35% 0 35%;
+    align-content: center;
+
+    color: #777;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.5rem;
+    font-weight: 100;
+}
