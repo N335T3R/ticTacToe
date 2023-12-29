@@ -49,94 +49,6 @@ var board = {
     }
 };
 
-
-var referee = {
-    counter: 0,
-    selectSqr: 0,
-    refTalk: document.querySelector(".refTalk"),
-    prompts: {
-        p1Turn: {
-            message: "Player 1: Use the arrow keys to move. Press 'ENTER' to select."
-        }, p2Turn: {
-            message: "Player 2: Use the arrow keys to move. Press 'ENTER' to select."
-        }, p1Confirm: {
-            message: "Player 1: Press 'ENTER' to confirm or 'BKSPC' to deselect."
-        }, p2Confirm: {
-            message: "Player 2: Press 'ENTER' to confirm or 'BKSPC' to deselect."
-        }, p1Win: {
-            message: "Player 1 wins! Congratulations!"
-        }, p2Win: {
-            message: "Player 2 wins! Congratulations!"
-        }
-    },
-    takeTurn: function() {
-        this.counter++;
-        
-        if (this.counter % 2 !== 0) {
-            this.refTalk.textContent = this.prompts.p1Turn.message;
-        } else {
-            this.refTalk.textContent = this.prompts.p2Turn.message;
-        }
-
-        board.squares[this.selectSqr].classList.add('selectSqr');
-
-        this.changeSqr();
-    },
-    changeSqr: function() {
-        window.addEventListener('keydown', (e) => {
-            var key = e.key;
-
-            switch(key) {
-                case "ArrowUp":
-                    if (this.selectSqr !== 6 && this.selectSqr !== 7 && this.selectSqr !== 8){
-                        board.squares[this.selectSqr].classList.remove("selectSqr");
-                        this.selectSqr = this.selectSqr + 3;
-                        board.squares[this.selectSqr].classList.add("selectSqr");
-                    } else if (this.selectSqr == 6 || this.selectSqr == 7 || this.selectSqr == 8) {
-                        board.squares[this.selectSqr].classList.remove("selectSqr");
-                        this.selectSqr = this.selectSqr - 6;
-                        board.squares[this.selectSqr].classList.add("selectSqr");
-                    }
-                    break;
-                case "ArrowRight":
-                    if (this.selectSqr !== 2 && this.selectSqr !== 5 && this.selectSqr !== 8){
-                        board.squares[this.selectSqr].classList.remove("selectSqr");
-                        this.selectSqr = this.selectSqr + 1;
-                        board.squares[this.selectSqr].classList.add("selectSqr");
-                    } else if (this.selectSqr == 2 || this.selectSqr == 5 || this.selectSqr == 8) {
-                        board.squares[this.selectSqr].classList.remove("selectSqr");
-                        this.selectSqr = this.selectSqr - 2;
-                        board.squares[this.selectSqr].classList.add("selectSqr");
-                    }
-                    break;
-                case "ArrowDown":
-                    if (this.selectSqr !== 0 && this.selectSqr !== 1 && this.selectSqr !== 2){
-                        board.squares[this.selectSqr].classList.remove("selectSqr");
-                        this.selectSqr = this.selectSqr - 3;
-                        board.squares[this.selectSqr].classList.add("selectSqr");
-                    } else if (this.selectSqr == 0 || this.selectSqr == 1 || this.selectSqr == 2) {
-                        board.squares[this.selectSqr].classList.remove("selectSqr");
-                        this.selectSqr = this.selectSqr + 6;
-                        board.squares[this.selectSqr].classList.add("selectSqr");
-                    }
-                    break;
-                case "ArrowLeft":
-                    if (this.selectSqr !== 0 && this.selectSqr !== 3 && this.selectSqr !== 6){
-                        board.squares[this.selectSqr].classList.remove("selectSqr");
-                        this.selectSqr = this.selectSqr - 1;
-                        board.squares[this.selectSqr].classList.add("selectSqr");
-                    } else if (this.selectSqr == 0 || this.selectSqr == 3 || this.selectSqr == 6) {
-                        board.squares[this.selectSqr].classList.remove("selectSqr");
-                        this.selectSqr = this.selectSqr + 2;
-                        board.squares[this.selectSqr].classList.add("selectSqr");
-                    }
-                    break;
-            }
-        });
-    }
-};
-
-
 var players = {
     pieces: {
         p1: [],
@@ -206,6 +118,140 @@ var players = {
         this.buildPlayerSpace();
     }
 };
+
+
+var referee = {
+    counter: 0,
+    selectSqr: 0,
+    refTalk: document.querySelector(".refTalk"),
+    prompts: {
+        p1Turn: {
+            message: "Player 1: Use the arrow keys to move. Press 'ENTER' to select."
+        }, p2Turn: {
+            message: "Player 2: Use the arrow keys to move. Press 'ENTER' to select."
+        }, p1Confirm: {
+            message: "Player 1: Press 'ENTER' to confirm or 'BKSPC' to deselect."
+        }, p2Confirm: {
+            message: "Player 2: Press 'ENTER' to confirm or 'BKSPC' to deselect."
+        }, p1Win: {
+            message: "Player 1 wins! Congratulations!"
+        }, p2Win: {
+            message: "Player 2 wins! Congratulations!"
+        }
+    },
+    takeTurn: function() {
+        this.counter++;
+        this.selectSqr = 0;
+        
+        if (this.counter % 2 !== 0) {
+            this.refTalk.textContent = this.prompts.p1Turn.message;
+        } else {
+            this.refTalk.textContent = this.prompts.p2Turn.message;
+        }
+
+        board.squares[this.selectSqr].classList.add('selectSqr');
+
+        this.changeSqr();
+    },
+    changeSqr: function() {
+        window.addEventListener('keydown', (e) => {
+            var key = e.key;
+            console.log(key);
+
+            if (this.counter % 2 !== 0) {
+                this.refTalk.textContent = this.prompts.p1Turn.message;
+            } else {
+                this.refTalk.textContent = this.prompts.p2Turn.message;
+            }
+
+            switch(key) {
+                case "ArrowUp":
+                    if (this.selectSqr !== 6 && this.selectSqr !== 7 && this.selectSqr !== 8){
+                        board.squares[this.selectSqr].classList.remove("selectSqr");
+                        this.selectSqr = this.selectSqr + 3;
+                        board.squares[this.selectSqr].classList.add("selectSqr");
+                    } else if (this.selectSqr == 6 || this.selectSqr == 7 || this.selectSqr == 8) {
+                        board.squares[this.selectSqr].classList.remove("selectSqr");
+                        this.selectSqr = this.selectSqr - 6;
+                        board.squares[this.selectSqr].classList.add("selectSqr");
+                    }
+                    break;
+                case "ArrowRight":
+                    if (this.selectSqr !== 2 && this.selectSqr !== 5 && this.selectSqr !== 8){
+                        board.squares[this.selectSqr].classList.remove("selectSqr");
+                        this.selectSqr = this.selectSqr + 1;
+                        board.squares[this.selectSqr].classList.add("selectSqr");
+                    } else if (this.selectSqr == 2 || this.selectSqr == 5 || this.selectSqr == 8) {
+                        board.squares[this.selectSqr].classList.remove("selectSqr");
+                        this.selectSqr = this.selectSqr - 2;
+                        board.squares[this.selectSqr].classList.add("selectSqr");
+                    }
+                    break;
+                case "ArrowDown":
+                    if (this.selectSqr !== 0 && this.selectSqr !== 1 && this.selectSqr !== 2){
+                        board.squares[this.selectSqr].classList.remove("selectSqr");
+                        this.selectSqr = this.selectSqr - 3;
+                        board.squares[this.selectSqr].classList.add("selectSqr");
+                    } else if (this.selectSqr == 0 || this.selectSqr == 1 || this.selectSqr == 2) {
+                        board.squares[this.selectSqr].classList.remove("selectSqr");
+                        this.selectSqr = this.selectSqr + 6;
+                        board.squares[this.selectSqr].classList.add("selectSqr");
+                    }
+                    break;
+                case "ArrowLeft":
+                    if (this.selectSqr !== 0 && this.selectSqr !== 3 && this.selectSqr !== 6){
+                        board.squares[this.selectSqr].classList.remove("selectSqr");
+                        this.selectSqr = this.selectSqr - 1;
+                        board.squares[this.selectSqr].classList.add("selectSqr");
+                    } else if (this.selectSqr == 0 || this.selectSqr == 3 || this.selectSqr == 6) {
+                        board.squares[this.selectSqr].classList.remove("selectSqr");
+                        this.selectSqr = this.selectSqr + 2;
+                        board.squares[this.selectSqr].classList.add("selectSqr");
+                    }
+                    break;
+                case "Enter":
+                    this.confirmSqr();
+                    break;
+            }
+        });
+    },
+    confirmSqr: function() {
+        if (this.counter % 2 !== 0) this.refTalk.textContent = this.prompts.p1Confirm.message;
+        else this.refTalk.textContent = this.prompts.p2Confirm.message;
+    
+
+        window.addEventListener("keydown", (e) => {
+            var key = e.key;
+
+            switch(key) {
+                case "Enter":
+                    if (this.counter % 2 !== 0) {
+                        p = document.createElement("p");
+                        p.textContent = players.players.p1.value;
+
+                        p.classList.add("pp");
+                        board.squares[this.selectSqr].classList.add("p1Sqr");
+                        board.squares[this.selectSqr].appendChild(p);
+                    } else {
+                        p = document.createElement("p");
+                        p.textContent = players.players.p2.value;
+
+                        p.classList.add("pp");
+                        board.squares[this.selectSqr].classList.add("p2Sqr");
+                        board.squares[this.selectSqr].appendChild(p);
+                    }
+                    this.takeTurn();
+                    break;
+                case "Backspace":
+                    this.changeSqr();
+                    break;
+            }
+        });
+    }
+};
+
+
+
 
 
 function gameGen() {
