@@ -20,8 +20,9 @@ body {
     padding: 0 0 0 5rem;
 }
 .playerDiv {
-    background-color: #999;
+    background-color: rgba(255, 235, 245, 0.85);
     opacity: 0.9;
+    border-radius: 0.15rem;
 }
 .playerDiv h1 {
     padding: 1.5rem;
@@ -73,13 +74,17 @@ body {
 .lSqr, .dSqr {
     height: inherit;
     width: 150px;
+    border: 1px solid #111;
+    border-radius: 0.15rem;
+
+    background-color: rgba(255, 235, 245, 0.85);
 }
-.lSqr {
+/* .lSqr {
     background-color: tan;
 }
 .dSqr {
     background-color: #333;
-}
+} */
 .selectSqr {
     background-color: #284;
 }
@@ -89,8 +94,8 @@ body {
     font-family: 'Times New Roman', Times, serif;
     text-align: center;
 
-    background-color: rgba(75, 200, 255, 1);
-    color: rgba(40, 50, 80, 1);
+    background-color: rgba(255, 235, 245, 0.85);
+    color: rgba(30, 56, 136, 1);
 }
 .p2Sqr {
     display: flexbox;
@@ -116,7 +121,7 @@ body {
     align-items: center;
     justify-content: center;
 
-    color: #777;
+    color: rgba(255, 235, 245, 0.85);
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.5rem;
     font-weight: 100;
@@ -126,5 +131,5 @@ body {
 }
 .refSpace p {
     text-align: center;
-    margin: 1rem 0 0 2rem;
+    margin: 1.5rem 2rem 0 2rem;
 }

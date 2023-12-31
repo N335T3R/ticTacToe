@@ -144,6 +144,7 @@ var referee = {
         this.selectSqr = 0;
         board.squares[this.selectSqr].classList.add('selectSqr');
         console.log(this.selectSqr);
+
         
         if (this.counter % 2 !== 0) {
             this.refTalk.textContent = this.prompts.p1Turn.message;
@@ -160,7 +161,7 @@ var referee = {
             this.refTalk.textContent = this.prompts.p2Turn.message;
         }
         
-        window.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', (e) => {
             var key = e.key;
             console.log(key);
 
@@ -216,18 +217,16 @@ var referee = {
         });
     },
     confirmSqr: function() {
-        var wrongPrompt;
+        document.removeEventListener("keydown", this.changeSqr);
 
         if (this.counter % 2 !== 0) {
             this.refTalk.textContent = this.prompts.p1Confirm.message;
-            wrongPrompt = this.prompts.p1Confirm.message;
         } else {
             this.refTalk.textContent = this.prompts.p2Confirm.message;
-            wrongPrompt = this.prompts.p2Confirm.message;
         }
     
 
-        window.addEventListener("keydown", (e) => {
+        document.addEventListener("keydown", (e) => {
             var key = e.key;
 
             switch(key) {
@@ -251,20 +250,17 @@ var referee = {
                     }
                     break;
                 case "Backspace":
+                    document.removeEventListener("keydown", this.confirmSqr);
                     this.changeSqr();
-                    break;
-                default: 
-                    this.refTalk.textContent = "Choose a correct option. " + wrongPrompt;
                     break;
             }
         });
     },
     evaluate: function() {
+        document.removeEventListener("keydown", this.confirmSqr);
         this.takeTurn();
     }
 };
-
-
 
 
 

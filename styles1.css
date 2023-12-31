@@ -1,0 +1,29 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flexbox;
+
+    background-color: #111;
+}
+
+.boardspace {
+    display: block;
+    height: 600px;
+    width: 600px;
+}
+.row {
+    display: flex;
+    height: 200px;
+    width: 600px;
+}
+.sqr {
+    height: 200px;
+    width: 200px;
+
+    background-color: rgba(244, 219, 216, 1);
+}
+
