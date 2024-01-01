@@ -156,7 +156,7 @@ var referee = {
 
     },
     logCapture: function() {
-        console.log("You have captured this space!");
+        this.space.textContent = "You have captured this space!";
         console.log(this.playerSelection);
 
 
@@ -165,9 +165,13 @@ var referee = {
         if (this.counter % 2 !== 0) {
             users.players[0].captures.push(this.playerSelection);
             this.p1Captures.push(this.playerSelection);
+            squares[this.playerSelection].classList.add("p1Sqr");
+            squares[this.playerSelection].textContent = "X";
         } else {
             users.players[1].captures.push(this.playerSelection);
             this.p2Captures.push(this.playerSelection);
+            squares[this.playerSelection].classList.add("p2Sqr");
+            squares[this.playerSelection].textContent = "O";
         }
         console.log(users.players);
 
