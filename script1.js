@@ -15,6 +15,16 @@ function spyMouse(e) {
 // spyKey();
 
 var users = {
+    player1: {
+        space: document.getElementById("p1Space"),
+        namespace: document.getElementById("p1Name")
+    },
+    player2: {
+        space: document.getElementById("p2Space"),
+        namespace: document.getElementById("p2Name")
+    },
+    p1Name: "",
+    p2Name: "",
     players: [],
     generate: function() {
         var p1Name = prompt("Player 1 | Name:", "Name...");
@@ -23,7 +33,7 @@ var users = {
         var p1 = {
             name: p1Name,
             value: "X",
-            captures: []
+            captures: [],
         };
         var p2 = {
             name: p2Name,
@@ -34,11 +44,15 @@ var users = {
         this.players.push(p1);
         this.players.push(p2);
 
+        this.player1.namespace.textContent = p1Name;
+        this.player2.namespace.textContent = p2Name;
+
         console.log(this.players);
     }
 };
 
 var referee = {
+    space: document.getElementById("refMessage"),
     playerSelection: "",
     p1Captures: [],
     p2Captures: [],
@@ -79,14 +93,6 @@ var referee = {
     primes: [0, 1, 2, 3, 6],
     defendant: "",
     winState: 0,
-    a1: [0, 1, 2],
-    a2: [0, 3, 6],
-    a3: [0, 4, 8],
-    a4: [1, 4, 7],
-    a5: [2, 4, 6],
-    a6: [2, 4, 6],
-    a7: [2, 5, 8],
-    a8: [6, 7, 8],
     turnInit: function() {
         this.counter++;
 
@@ -101,8 +107,8 @@ var referee = {
     listen: function() {
         this.playerSelection = "";
 
-        console.log(this.currentPlayer + ", it is your turn. Select a space to capture.");
-        console.log("Click a space to select.");
+        this.space.textContent = this.currentPlayer + ", it is your turn. Select a space to capture. "
+         + "Click a space to select.";
 
         for (let i = 0; i < squares.length; i++) {
             squares[i].addEventListener("mouseover", spyMouse);
@@ -131,10 +137,9 @@ var referee = {
             squares[i].removeEventListener("mouseover", spyMouse);
         }
         
-        console.log(this.currentPlayer + ", are you sure you want to capture this space?");
-        console.log("Press 'ENTER' for accept.");
-        console.log("Press 'backspace' to deselect this space.");
-        console.log(this.playerSelection);
+        this.space.textContent = (this.currentPlayer + ", are you sure you want to capture this space? "
+        + "Press 'ENTER' for accept. "
+        + "Press 'backspace' to deselect this space. ");
 
         window.addEventListener("keydown", (e) => {
             var key = e.key;
@@ -207,20 +212,30 @@ var referee = {
             let winArray = [];
             let key = this.winKeys[i];
             let results = [];
+            let verdict;
 
             winArray.push(parseInt(key.slice(0, 1)));
             winArray.push(parseInt(key.slice(1, 2)));
             winArray.push(parseInt(key.slice(2, 3)));
 
-            for (let j = 0; j < winArray.length; j++) {
-                results.push(defCaptures.includes(winArray[j]));
-                console.log(winArray[j]);
-            }
 
-            if (results.includes('false') == false) {
-                this.winState = 1;}
-            else {
-                this.winState = 0;}
+            function getResults() {
+                for (let j = 0; j < winArray.length; j++) {
+                    results.push(defCaptures.includes(winArray[j]));
+                    console.log(winArray[j]);
+                }
+                verdict = results.includes(false);
+                console.log(verdict);
+            }
+            getResults();
+
+            if (verdict == false) {
+                this.winState = 1;
+                //stops further evaluation; ends game with winner announcement
+                break;
+            } else {
+                this.winState = 0;
+            }
 
             console.log(defCaptures);
             console.log(results);
@@ -294,7 +309,6 @@ var board = {
         this.makeRows();
     }
 };
-
 
 function gameGen() {
     board.generate();

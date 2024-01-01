@@ -4,11 +4,57 @@
     box-sizing: border-box;
 }
 
-body {
-    display: flexbox;
-
-    background-color: #111;
+:root {
+    --p1Blue: rgba(30, 56, 136, 1);
+    --p2Red:  rgba(165, 28, 48, 1);
+    --night: #111;
+    --linen: rgba(243, 233, 220, 1);
 }
+
+body {
+    display: block;
+
+    background-color: var(--night);
+}
+.main {
+    display: flex;
+    margin: 2rem 0 2rem 0;
+}
+
+.p1Space, .p2Space, .boardspace {
+    margin: 0 4rem 0 4rem;
+    
+}
+
+.p1Space, .p2Space {
+    display: block;
+    width: 25%;
+    height: 600px;
+}
+
+/* .p1Space {
+    background-color: var(--p1Blue);
+} */
+
+.p1Name, .p2Name {
+    width: 100%;
+    height: 20%;
+    border-radius: 0.15rem;
+    padding-top: 2.5rem;
+
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2.5rem;
+    text-align: center;
+    color: var(--linen);
+}
+.p1Name {
+    background-color: var(--p1Blue);
+}
+
+.p2Name {
+    background-color: var(--p2Red);
+}
+
 
 .boardspace {
     display: block;
@@ -24,6 +70,31 @@ body {
     height: 200px;
     width: 200px;
 
-    background-color: rgba(244, 219, 216, 1);
+    background-color: var(--night);
+    border: 1px solid var(--linen);
 }
 
+
+.refSpace {
+    margin: 4rem 0 0 0;
+    width: 100%;
+    height: 1fr;
+
+    background-color: var(--night);
+}
+.refTitle, .refMessage {
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+
+    color: var(--linen);
+}
+.refTitle {
+    margin: 2rem 3.7rem 0 0;
+    font-size: 3.5rem;
+    font-style: italic;
+}
+.refMessage {
+    margin: 2rem 3.7rem 0 0;
+
+    font-size: 2rem;
+}
