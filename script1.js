@@ -72,11 +72,21 @@ var referee = {
         }
     },
     counter: 0,
+    winKeys: ["012", "036", "048", "147", "246", "258", "345", "678"],
+    defKeys: [],
     evalCount: 0,
     currentPlayer: "",
     primes: [0, 1, 2, 3, 6],
     defendant: "",
     winState: 0,
+    a1: [0, 1, 2],
+    a2: [0, 3, 6],
+    a3: [0, 4, 8],
+    a4: [1, 4, 7],
+    a5: [2, 4, 6],
+    a6: [2, 4, 6],
+    a7: [2, 5, 8],
+    a8: [6, 7, 8],
     turnInit: function() {
         this.counter++;
 
@@ -144,7 +154,7 @@ var referee = {
         console.log("You have captured this space!");
         console.log(this.playerSelection);
 
-        this.positions[this.playerSelection].captured++;
+
         console.log(this.positions);
 
         if (this.counter % 2 !== 0) {
@@ -161,6 +171,7 @@ var referee = {
     evaluate: function() {
         var defCaptures = [];
         var defPrimes = [];
+        var proofs = [];
 
         if (this.evalCount !== 1) {
             this.defendant = users.players[0];
@@ -188,19 +199,44 @@ var referee = {
         }
         console.log(defPrimes);
 
-        //defPrimes.forEach( => execute math win patterns for xyzn on approriate stored values;
-        // check for true/false)
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // !!!!!!!EVERYTHING UP TO THIS POINT WORKS!!!!!!!
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+        for (let i = 0; i < this.winKeys.length; i++) {
+            let winArray = [];
+            let key = this.winKeys[i];
+            let results = [];
 
-        
-        // if (this.winState == 1) {
-        //     this.delcareWin();
-        // } else if (this.evalCount <= 1 && this.winState !== 1) {
-        //     this.evalCount++;
-        //     this.evaluate();
-        // } else if (this.evalCount > 1 && this.winState !== 1) {
-        //     this.turnInit();
-        // }
+            winArray.push(parseInt(key.slice(0, 1)));
+            winArray.push(parseInt(key.slice(1, 2)));
+            winArray.push(parseInt(key.slice(2, 3)));
+
+            for (let j = 0; j < winArray.length; j++) {
+                results.push(defCaptures.includes(winArray[j]));
+                console.log(winArray[j]);
+            }
+
+            if (results.includes('false') == false) {
+                this.winState = 1;}
+            else {
+                this.winState = 0;}
+
+            console.log(defCaptures);
+            console.log(results);
+            console.log(winArray);
+                console.log(this.winState);
+            proofs.push(results);
+        }
+
+        if (this.winState == 1) {
+            this.delcareWin();
+        } else if (this.evalCount <= 1 && this.winState !== 1) {
+            this.evalCount++;
+            this.evaluate();
+        } else if (this.evalCount > 1 && this.winState !== 1) {
+            this.turnInit();
+        }
     },
     trackTurn: function() {
         if (this.counter % 2 !== 0) this.currentPlayer = users.players[0].name;
